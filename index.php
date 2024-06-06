@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rosana Modas</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -13,9 +15,10 @@
             <nav>
                 <ul>
                     <li><a href="#">Início</a></li>
-                    <li><a href="#">Produtos</a></li>
+                    <li><a href="pgs/catalogoPg.php">Produtos</a></li>
                     <li><a href="#">Sobre</a></li>
                     <li><a href="#">Contato</a></li>
+                    <li><a href="pgs/cadastroProdutoPg.php">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -25,7 +28,7 @@
         <div class="container">
             <h2>Moda de Qualidade e Estilo</h2>
             <p>Explore nossa coleção e encontre o look perfeito para você!</p>
-            <a href="#" class="btn">Ver Coleção</a>
+            <a href="pgs/catalogoPg.php" class="btn">Ver Coleção</a>
         </div>
     </section>
 
@@ -53,4 +56,5 @@
         </div>
     </footer>
 </body>
+
 </html>
