@@ -72,7 +72,7 @@ header h1 {
 
 .features {
   padding: 50px 0;
-  text-align: left; /* Align text to the left */
+  text-align: left;
 }
 
 .features h3 {
@@ -85,7 +85,7 @@ header h1 {
   color: #555;
 }
 
-footer {
+.footer {
   background: #f5e5e4;
   color: #333;
   text-align: center;
@@ -100,8 +100,57 @@ form {
   border: 1px solid #bd978b;
   border-radius: 5px;
   margin-top: 20px;
-  width: 40%; /* Set form width to 40% */
-  float: left; /* Align form to the left */
+  width: 40%;
+}
+
+.flex-container {
+  display: flex;
+  gap: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #bd978b;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.product-card p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.product-card .add-to-cart {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.product-card .add-to-cart:hover {
+  background-color: #555;
 }
 
 .form-group {
@@ -144,28 +193,38 @@ form input[type="submit"]:hover {
 
 @media (max-width: 768px) {
   header nav {
-      float: none;
-      text-align: center;
+    float: none;
+    text-align: center;
   }
 
   header nav ul {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   header h1 {
-      text-align: center;
-      margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
   header li {
-      padding: 10px 0;
+    padding: 10px 0;
   }
 
   form {
-      width: 90%; /* Make form full width on small screens */
-      float: none; /* Center form on small screens */
+    width: 90%;
+  }
+
+  .flex-container {
+    flex-direction: column;
+  }
+
+  .products {
+    width: 100%;
+  }
+
+  .product-card {
+    width: 100%;
   }
 }
-  

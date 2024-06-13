@@ -15,7 +15,7 @@
             <nav>
                 <ul>
                     <li><a href="../index.php">Início</a></li>
-                    <li><a href="pgs/catalogoPg.php">Produtos</a></li>
+                    <li><a href="catalogoPg.php">Produtos</a></li>
                     <li><a href="#">Sobre</a></li>
                     <li><a href="#">Contato</a></li>
                 </ul>

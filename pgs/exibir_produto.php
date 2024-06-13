@@ -1,35 +1,53 @@
 <?php
-include("connect.php");
-  
-    // Consulta SQL para selecionar produtos com base nos filtros
-    $sql = "SELECT * FROM produtos WHERE categoria = 'vestuario'";
-    
-    // Adicionar filtros conforme necessário
-    if(isset($_GET['categoria'])) {
-        $categoria = $_GET['categoria'];
-        $sql .= " AND categoria = '$categoria'";
-    }
-    if(isset($_GET['preco_min']) && isset($_GET['preco_max'])) {
-        $preco_min = $_GET['preco_min'];
-        $preco_max = $_GET['preco_max'];
-        $sql .= " AND preco BETWEEN $preco_min AND $preco_max";
-    }
+// Inclua o arquivo que estabelece a conexão com o banco de dados
+require_once 'connect.php';
 
-    $result = $conn->query($sql);
+// Verifique se a variável $conn está definida
+if (!isset($conn)) {
+    die('A conexão com o banco de dados falhou.');
+}
 
-    if ($result->num_rows > 0) {
-        // Exibe os produtos encontrados
-        echo "<ul>";
-        while($row = $result->fetch_assoc()) {
-            echo "<li>" . $row["nome"] . " - R$" . $row["preco"] . "</li>";
-        }
-        echo "</ul>";
-    } else {
-        echo "Nenhum produto encontrado.";
-    }
+// Filtro de produtos
+$categoria = $_GET['categoria'] ?? '';
+$preco_min = $_GET['preco_min'] ?? 0;
+$preco_max = $_GET['preco_max'] ?? 999999;
 
-    // Fecha a conexão
-    $conn->close();
-    ?>
-</body>
-</html>
+// Construir a consulta
+$query = "SELECT * FROM produtos WHERE preco BETWEEN ? AND ?";
+$params = [$preco_min, $preco_max];
+$types = "dd";
+
+if (!empty($categoria)) {
+    $query .= " AND categoria = ?";
+    $params[] = $categoria;
+    $types .= "s";
+}
+
+// Preparar a consulta
+$stmt = $conn->prepare($query);
+
+if ($stmt === false) {
+    die('Erro na preparação da consulta: ' . $conn->error);
+}
+
+// Vincular os parâmetros
+$stmt->bind_param($types, ...$params);
+
+// Executar a consulta
+$stmt->execute();
+
+// Obter os resultados
+$result = $stmt->get_result();
+$produtos = $result->fetch_all(MYSQLI_ASSOC);
+
+foreach ($produtos as $produto) {
+    echo '<div class="product-card">';
+    echo '<h3>' . htmlspecialchars($produto['nome']) . '</h3>';
+    echo '<p>' . htmlspecialchars($produto['descricao']) . '</p>';
+    echo '<p>Preço: R$' . htmlspecialchars($produto['preco']) . '</p>';
+    echo '<button class="add-to-cart" data-id="' . htmlspecialchars($produto['id_produto']) . '">Comprar</button>';
+    echo '</div>';
+}
+
+$stmt->close();
+$conn->close();
